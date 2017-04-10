@@ -1,2 +1,2 @@
-# jquery-examples
-This repo will contain examples, I have created using different jquery methods.
+# Jquery Examples
+This repo contains examples that I have created using different jquery methods.
