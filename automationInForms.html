@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <script src="script/jquery-3.2.0.js"></script>
+</head>
+<style>
+    input[type=text]{
+        display: block;
+        margin-bottom: 20px;
+    }
+    button {
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<button data-target="nimra">First User</button>
+<button data-target="ramish">Second User</button>
+<button data-target="khansa"> Third User</button>
+<form action="">
+    <fieldset>
+        <input type="text" placeholder="First Name" class="fname">
+        <input type="text" placeholder="Last Name" class="lname">
+        <label for="item1">
+            <input type="radio" name="beverage" value="coffee" id="item1" class="beverage-type">Coffee </label>
+        <label for="item2">
+            <input type="radio" name="beverage" value="tea" id="item2" class="beverage-type" >Tea </label>
+        <label for="item3">
+            <input type="radio" name="beverage" value="latte" id="item3" class="beverage-type">Latte </label>
+        <label for="item4">
+            <input type="radio" name="beverage" value="mocha" id="item4" class="beverage-type">Mocha </label> <br/>
+        <label> You are avaiable on: </label> <br/>
+        <input type="checkbox" name="checklist" value="linkedin" class="list">Linked In<br>
+        <input type="checkbox" name="checklist" value="angel" class="list">Angel.io <br/>
+        <input type="checkbox" name="checklist" value="github" class="list">github<br/>
+        <textarea placeholder="Who you are?" rows="10" cols="25" class="intro"></textarea>
+    </fieldset>
+</form>
+<script>
+    (function () {
+        $('button').click(automation);
+        var dictionary;
+        dictionary = {
+            nimra: {
+                firstName: 'Nimra',
+                lastName: 'Riaz',
+                intro:'Web Developer',
+                beverage:'tea',
+                checklist:['linkedin','github']
+            },
+            ramish: {
+                firstName: 'Ramish',
+                lastName: 'Fatima',
+                intro:'ios Developer',
+                beverage:'latte',
+                checklist:['angel','github']
+            },
+            khansa: {
+                firstName: 'Khansa',
+                lastName: 'Idrees',
+                intro:'Quality Engineer',
+                beverage:'mocha',
+                checklist:['linkedin','angel']
+            }
+        };
+        console.log(dictionary);
+        function automation() {
+            var $this = $(this);
+            var $list = $('input.list');
+            var x;
+            var personName = $this.data('target');
+            console.log(personName);
+            var personProfile = dictionary[personName];
+            console.log(personProfile);
+            $('input.fname').val(personProfile.firstName);
+            $('input.lname').val(personProfile.lastName);
+            $('input.beverage-type').filter("[value=" + personProfile.beverage + "]").prop('checked', true);
+            console.log(personProfile.checklist);
+            $list.prop('checked', false);
+            for (var i = 0; i < personProfile.checklist.length; i++) {
+                $list.filter("[value=" + personProfile.checklist[i] + "]").prop('checked', true);
+            }
+            $('textarea.intro').val(personProfile.intro);
+        }
+    }());
+</script>
+</body>
+</html>
