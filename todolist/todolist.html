@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <script src="script/jquery-3.2.0.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>
+    To Do List
+</h1>
+<form id="todo-form" action="">
+    <fieldset>
+        <input type="text" placeholder="New Entry" id="input" minlength="2" maxlength="10" name="input-box" autofocus
+               required>
+        <input type="submit" class="add" value="Add" id="submit">
+        <input type="submit" class="hidden cancel" value="Cancel" id="cancel">
+    </fieldset>
+</form>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr>
+        <td>Nimra</td>
+        <td>
+            <button class="edit">Edit</button>
+        </td>
+        <td>
+            <button class="del">Del</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Ramish</td>
+        <td>
+            <button class="edit">Edit</button>
+        </td>
+        <td>
+            <button class="del">Del</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Aiza</td>
+        <td>
+            <button class="edit">Edit</button>
+        </td>
+        <td>
+            <button class="del">Del</button>
+        </td>
+    </tr>
+    <tr>
+        <td>Khansa</td>
+        <td>
+            <button class="edit">Edit</button>
+        </td>
+        <td>
+            <button class="del">Del</button>
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+    (function () {
+        var $input, $table, $todoForm, $submitButton, $cancel;
+
+        //caching
+        $input = $('#input');
+        $todoForm = $('#todo-form');
+        $submitButton = $('#submit');
+        $cancel = $('#cancel');
+        $table = $('table');
+
+
+
+        $todoForm.on('submit', handleSubmit);
+        $table.on('click', 'button.del', deleteTodo);
+        $table.on('click', 'button.edit', editModeOn);
+        $cancel.on('click', cancelTodo);
+        /*functions declaration*/
+
+        function handleSubmit(e) {
+            //prevents the page from getting refreshed.
+            e.preventDefault();
+//            $cancel.on('click',cancelTodo());
+//            $submitButton.on('click',loren);
+            $('tr.highlight').length ? editTodo() : addTodo();
+        }
+//        function loren() {
+//
+//        }
+
+        function addTodo() {
+            console.log('add row function');
+            var entry = $input.val();
+
+            var todoMarkup = [
+                '<tr>',
+                '  <td>',
+                '    ' + entry,
+                '  </td>',
+                '  <td>',
+                '    <button class="edit">Edit</button>',
+                '  </td>',
+                '  <td>',
+                '    <button class="del">Del</button>',
+                '  </td>',
+                '</tr>'
+            ].join('');
+            console.log(entry);
+            $table.append(todoMarkup);
+            $input.val('');
+        }
+
+        // removes the selected record
+        function deleteTodo() {
+            //TODO: take the confirmation
+            var self;
+            var $todo = $(this).closest('tr');
+            $todo.removeClass('updated highlight').addClass('danger');
+
+            setTimeout(function () {
+                var response;
+                response = confirm('Are you sure you want to delete this item!');
+                console.log(response);
+                response ? $todo.remove() : $todo.removeClass('danger');
+            }, 0);
+        }
+
+        function cancelTodo() {
+
+            $('tr.highlight')
+                .removeClass();
+            $submitButton.val('Add');
+            $cancel.addClass('hidden');
+            $input.val('').focus();
+            $('tr').find('button').removeAttr('disabled');
+            console.log('Updation cancelled');
+        }
+
+        function editTodo() {
+            var updatedRow;
+            updatedRow = $input.val();
+            $('tr.highlight')
+                .find('td:first')
+                .text(updatedRow)
+                .end()
+                .removeClass('highlight')
+                .addClass('updated');
+
+            $submitButton.val('Add');
+            $cancel.addClass('hidden');
+            $input.val('').focus();
+            $('tr').find('button').removeAttr('disabled');
+            console.log('Updation successful');
+        }
+
+        function editModeOn() {
+            var value, $this;
+            $this = $(this);
+
+            $this.closest('tr').removeClass('updated').addClass('highlight');
+            value = $(this).parent().prev().text();
+            $input.val(value).focus();
+            $submitButton.val('Update');
+            $cancel.removeClass('hidden');
+            $('tr').find('button').attr('disabled', 'true');
+        }
+
+    })();
+</script>
+</html>

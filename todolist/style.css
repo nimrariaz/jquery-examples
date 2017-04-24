@@ -1,0 +1,54 @@
+body {
+    margin: auto;
+    width: 600px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+input[type=text] {
+    padding: 0 5px;
+}
+
+input[type=submit] {
+    margin-left: 20px;
+}
+
+form {
+    padding-top: 10px;
+}
+
+th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+.highlight {
+    background-color: #bae2e5;
+    border: 5px ridge #fffb7a;
+}
+
+.danger {
+    background-color: #ff7461;
+}
+
+.updated {
+    background-color: #42d66c;
+}
+
+.duplicate {
+    background-color: #fffb7a;
+}
+
+.hidden {
+    display: none;
+}
+
+.disabled {
+
+}
